@@ -1,5 +1,7 @@
 """This module contains functions to scrape gaysiandiaries.com and
 https://gaysianthirdspace.tumblr.com/."""
+# Need to go back and clean this code so I'm not creating a soup every time.
+# I should just pass soup into the function.
 
 from bs4 import BeautifulSoup
 import requests
@@ -77,8 +79,32 @@ def gd_get_blog_dicts(base_url):
 
 
 def g3s_get_tag_page_url(base_url):
-    tag_pages = []
     soup = create_soup(base_url)
+    tag_pages = []
     for element in soup.find('div', class_='body-text').find_all('a'):
         tag_pages.append(element.get('href'))
     return tag_pages
+
+
+def g3s_get_num_tag_pages(url):
+    soup = create_soup(url)
+    if soup.find(class_='next'):
+        return int(soup.find(class_='next').get('data-total-pages'))
+    return 1
+
+
+def g3s_get_blog_urls(urls):
+    blog_urls = []
+    for url in urls:
+        urls_to_scrape = [url]
+        num_pages = g3s_get_num_tag_pages(url)
+        if num_pages > 1:
+            for i in range(2, num_pages+1):
+                urls_to_scrape.append(f'{url}/page/{i}')
+        soups = create_soups(urls_to_scrape)
+        for soup in soups:
+            for element in soup.find_all(class_='meta-item post-notes'):
+                blog_urls.append(element.get('href').replace('#notes', ''))
+    # Using set to return all unique blog_urls since some may be repeating due
+    # to having mutliple tags featured in Post Directory page
+    return list(set(blog_urls))
