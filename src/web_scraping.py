@@ -72,6 +72,7 @@ def gd_get_blog_dicts(base_url):
     blog_dicts = [
         {'title': gd_get_blog_title(blog_url),
          'date': gd_get_blog_date(blog_url),
+         'url': blog_url,
          'text': gd_get_blog_text(blog_url)}
         for blog_url in blog_urls
     ]
@@ -108,3 +109,40 @@ def g3s_get_blog_urls(urls):
     # Using set to return all unique blog_urls since some may be repeating due
     # to having mutliple tags featured in Post Directory page
     return list(set(blog_urls))
+
+
+def g3s_get_blog_title(blog_url):
+    soup = create_soup(blog_url)
+    if soup.find(class_='title'):
+        return soup.find(class_='title').text
+    if soup.find(class_='link-title'):
+        return soup.find(class_='link-title').text
+    return None
+
+
+def g3s_get_blog_date(blog_url):
+    soup = create_soup(blog_url)
+    return soup.find(class_='meta-item post-date').text
+
+
+def g3s_get_blog_text(blog_url):
+    paragraphs = []
+    soup = create_soup(blog_url)
+    for element in soup.find_all('p'):
+        paragraphs.append(element.text)
+    text = '\n\n'.join(paragraphs) # Adding two line breaks for readability
+    return text
+
+
+def g3s_get_blog_dicts(blog_urls):
+    counter = 0
+    blog_dicts = []
+    for blog_url in blog_urls:
+        blog_dicts.append(
+            {'title': g3s_get_blog_title(blog_url),
+             'date': g3s_get_blog_date(blog_url),
+             'url': blog_url,
+             'text': g3s_get_blog_text(blog_url)})
+        counter += 1
+        print(counter)
+    return blog_dicts
