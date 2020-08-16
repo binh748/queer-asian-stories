@@ -67,11 +67,22 @@ def gd_get_blog_text(blog_url):
     return text
 
 
+def gd_get_blog_num_notes(blog_url):
+    soup = create_soup(blog_url)
+    if soup.find(class_='notes'):
+        num_notes = len(soup.find(class_='notes').find_all('li'))
+        return num_notes
+    return 0
+
+
 def gd_get_blog_dicts(base_url):
     blog_urls = gd_get_blog_urls(base_url)
     blog_dicts = [
         {'title': gd_get_blog_title(blog_url),
          'date': gd_get_blog_date(blog_url),
+         'num_notes': gd_get_blog_num_notes(blog_url),
+         # Will get filled in when combining with Google Analytics data
+         'unique_pageviews': None,
          'url': blog_url,
          'text': gd_get_blog_text(blog_url)}
         for blog_url in blog_urls
@@ -134,6 +145,15 @@ def g3s_get_blog_text(blog_url):
     return text
 
 
+def g3s_get_blog_num_notes(blog_url):
+    soup = create_soup(blog_url)
+    if soup.find(class_='meta-item post-notes'):
+        num_notes = int(soup.find(class_='meta-item post-notes') \
+            .text.split()[0].replace(',', ''))
+        return num_notes
+    return 0
+
+
 def g3s_get_blog_dicts(blog_urls):
     counter = 0
     blog_dicts = []
@@ -141,6 +161,9 @@ def g3s_get_blog_dicts(blog_urls):
         blog_dicts.append(
             {'title': g3s_get_blog_title(blog_url),
              'date': g3s_get_blog_date(blog_url),
+             'num_notes': g3s_get_blog_num_notes(blog_url),
+             # Will get filled in when combining with Google Analytics data
+             'unique_pageviews': None,
              'url': blog_url,
              'text': g3s_get_blog_text(blog_url)})
         counter += 1
