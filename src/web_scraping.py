@@ -8,7 +8,7 @@ import requests
 
 
 def create_soup(url):
-    """Creates a BeautifulSoup object for a given URL."""
+    """Creates a BeautifulSoup object for a URL."""
     response_text = requests.get(url).text
     soup = BeautifulSoup(response_text, 'html5lib')
     return soup
@@ -24,11 +24,19 @@ def create_soups(urls):
 
 
 def gd_get_num_pages(base_url):
+    """Returns the number of Gaysian Diary pages. A page can contain multiple blog
+    posts."""
     soup = create_soup(base_url)
     return int(soup.find_all('a', class_='jump_page')[-1].text)
 
 
 def gd_get_page_urls(base_url):
+    """Returns a list of URLs for each page in the Gaysian Diaries. A page can
+    contain multiple blog posts.
+
+    Args:
+        base_url: Gaysian Diaries home page URL.
+    """
     page_urls = [base_url]
     num_pages = gd_get_num_pages(base_url)
     for i in range(2, num_pages+1):
@@ -37,6 +45,11 @@ def gd_get_page_urls(base_url):
 
 
 def gd_get_blog_urls(base_url):
+    """Returns a list of URLs for each blog post in the Gaysian Diaries.
+
+    Args:
+        base_url: Gaysian Diaries home page URL.
+    """
     page_urls = gd_get_page_urls(base_url)
     blog_urls = []
     for url in page_urls:
@@ -47,16 +60,19 @@ def gd_get_blog_urls(base_url):
 
 
 def gd_get_blog_title(blog_url):
+    """Returns the title of the Gaysian Diaries blog post."""
     soup = create_soup(blog_url)
     return soup.find(class_='post_title').text
 
 
 def gd_get_blog_date(blog_url):
+    """Returns the publishing date of the Gaysian Diaries blog post."""
     soup = create_soup(blog_url)
     return soup.find(class_='post_date').text
 
 
 def gd_get_blog_text(blog_url):
+    """Returns the text of the Gaysian Diaries blog post."""
     paragraphs = []
     soup = create_soup(blog_url)
     # Start for loop at index 1 since
@@ -68,6 +84,10 @@ def gd_get_blog_text(blog_url):
 
 
 def gd_get_blog_num_notes(blog_url):
+    """Returns the number of tumblr notes for the Gaysian Diaries blog post.
+
+    To learn more about tumblr notes, visit:
+    https://tumblr.zendesk.com/hc/en-us/articles/231855888-Notes."""
     soup = create_soup(blog_url)
     if soup.find(class_='notes'):
         num_notes = len(soup.find(class_='notes').find_all('li'))
@@ -76,6 +96,12 @@ def gd_get_blog_num_notes(blog_url):
 
 
 def gd_get_blog_dicts(base_url):
+    """Returns a list of dicts of key information for each Gaysian Diaries blog
+    post.
+
+    Args:
+        base_url: Gaysian Diaries home page URL.
+    """
     blog_urls = gd_get_blog_urls(base_url)
     blog_dicts = [
         {'title': gd_get_blog_title(blog_url),
@@ -91,6 +117,15 @@ def gd_get_blog_dicts(base_url):
 
 
 def g3s_get_tag_page_url(base_url):
+    """Returns list of Gaysian Third Space tag page URLs.
+
+    A tag page is a page belonging to a specific tag such as body image,
+    career, coming out, etc. The tags are listed on the post directory page:
+    https://gaysianthirdspace.tumblr.com/tags.
+
+    Args:
+        base_url: Gaysian Third Space post directory page.
+    """
     soup = create_soup(base_url)
     tag_pages = []
     for element in soup.find('div', class_='body-text').find_all('a'):
@@ -99,6 +134,11 @@ def g3s_get_tag_page_url(base_url):
 
 
 def g3s_get_num_tag_pages(url):
+    """Returns the number of tag pages in the Gaysian Third Space.
+
+    A tag page is a page belonging to a specific tag such as body image,
+    career, coming out, etc. The tags are listed on the post directory page:
+    https://gaysianthirdspace.tumblr.com/tags."""
     soup = create_soup(url)
     if soup.find(class_='next'):
         return int(soup.find(class_='next').get('data-total-pages'))
@@ -106,6 +146,11 @@ def g3s_get_num_tag_pages(url):
 
 
 def g3s_get_blog_urls(urls):
+    """Returns list of URLs for all Gaysian Third Space blog posts.
+
+    Args:
+        urls: Gaysian Third Space tag page urls.
+    """
     blog_urls = []
     for url in urls:
         urls_to_scrape = [url]
@@ -123,6 +168,7 @@ def g3s_get_blog_urls(urls):
 
 
 def g3s_get_blog_title(blog_url):
+    """Returns the title of the Gaysian Third Space blog post."""
     soup = create_soup(blog_url)
     if soup.find(class_='title'):
         return soup.find(class_='title').text
@@ -132,11 +178,13 @@ def g3s_get_blog_title(blog_url):
 
 
 def g3s_get_blog_date(blog_url):
+    """Returns the publishing date of the Gaysian Third Space blog post."""
     soup = create_soup(blog_url)
     return soup.find(class_='meta-item post-date').text
 
 
 def g3s_get_blog_text(blog_url):
+    """Returns the text of the Gaysian Third Space blog post."""
     paragraphs = []
     soup = create_soup(blog_url)
     for element in soup.find_all('p'):
@@ -146,6 +194,10 @@ def g3s_get_blog_text(blog_url):
 
 
 def g3s_get_blog_num_notes(blog_url):
+    """Returns the number of tumblr notes for the Gaysian Third Space blog post.
+
+    To learn more about tumblr notes, visit:
+    https://tumblr.zendesk.com/hc/en-us/articles/231855888-Notes."""
     soup = create_soup(blog_url)
     if soup.find(class_='meta-item post-notes'):
         num_notes = int(soup.find(class_='meta-item post-notes') \
@@ -155,6 +207,12 @@ def g3s_get_blog_num_notes(blog_url):
 
 
 def g3s_get_blog_dicts(blog_urls):
+    """Returns list of dicts of key information for each Gaysian Third Space blog
+    post.
+
+    Args:
+        blog_urls: List of URLs for all Gaysian Third Space blog posts.
+    """
     counter = 0
     blog_dicts = []
     for blog_url in blog_urls:
