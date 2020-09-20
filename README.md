@@ -14,7 +14,7 @@ I believe this finding points to the resiliency of the queer and trans Asian Pac
 
 ## Screenshots
 
-![t-SNE doc-topic clusters](https://user-images.githubusercontent.com/62628676/93692243-8f1d1700-fabe-11ea-8aec-dd7bc301e699.png)
+![t-SNE doc-topic clusters](https://user-images.githubusercontent.com/62628676/93692277-17032100-fabf-11ea-9a90-4ce7d3da2a0b.png)
 ![Sentiment map slide](https://user-images.githubusercontent.com/62628676/93692255-c12e7900-fabe-11ea-8774-238bdfafdf4f.png)
 
 ## Technologies
