@@ -26,6 +26,8 @@ I believe this finding points to the resiliency of the queer and trans Asian Pac
 * Spacy 2.3.2
 * vaderSentiment 3.3.2
 * Scikit-learn 0.23.1
+* Pandas 1.0.5
+* Numpy 1.18.5
 * Seaborn 0.10.1
 * Plotly 4.8.2
 
