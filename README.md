@@ -2,7 +2,7 @@
 
 For my [Metis](https://www.thisismetis.com/data-science-bootcamps) NLP/unsupervised learning project, I did topic modeling and sentiment analysis on the [Gaysian Diaries](https://gaysiandiaries.com/) and [Gaysian Third Space](https://gaysianthirdspace.tumblr.com/) tumblr blog posts. 
 
-I discovered a surprising result from my analysis: the sentiment scores for each topic were on average positive even for difficult topics like body image and racism. I dug deeper by doing a sectional sentiment analysis of the posts and found that the beginning and middle sections of posts were where most of the negative sentiments were expressed and that the final section, in contrast, would have a more positive, optimistic tone that would lift up the overall sentiment score. 
+I discovered a surprising result from my analysis: the sentiment scores for each topic were on average positive even for difficult topics like body image and racism. I dug deeper by doing a sectional sentiment analysis of the posts. I found that the beginning and middle sections of posts tended to be the most negative sections whereas the final section would be the most positive. This trend of blog posts ending on a positive, optimistic note was the reason sentiment scores were positive and debunked my assumptions. 
 
 I believe this finding points to the resiliency of the queer and trans Asian Pacific Islander community, that depsite the difficulties the community faces, many hold hope for a better tomorrow. 
 
