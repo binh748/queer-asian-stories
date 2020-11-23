@@ -2,18 +2,19 @@
 
 For my [Metis](https://www.thisismetis.com/data-science-bootcamps) NLP/unsupervised learning project, I did topic modeling and sentiment analysis on the [Gaysian Diaries](https://gaysiandiaries.com/) and [Gaysian Third Space](https://gaysianthirdspace.tumblr.com/) tumblr blog posts. 
 
-I discovered a surprising result from my analysis: the sentiment scores for each topic were on average positive even for difficult topics like body image and racism. I dug deeper by doing a sectional sentiment analysis of the posts. I found that the beginning and middle sections of posts tended to be the most negative sections whereas the final section would be the most positive. This trend of blog posts ending on a positive, optimistic note was the reason sentiment scores were positive and debunked my assumptions. 
+I discovered a surprising result from my analysis: the sentiment scores for each topic were on average positive even for difficult topics like body image and racism. I dug deeper by doing a sectional sentiment analysis of the posts. I found that on average the final section was the most positive, whereas the beginning and middle sections were on average more neutral in sentiment. At a more granular level, sentences carrying negative sentiments tended to be more concentrated in the beginning and middle sections as exemplified by Gaysian diary entry #5. This trend of blog posts ending on a positive, optimistic note helped explain why the overall sentiment scores for each topic were more positive than one would think. 
 
 I believe this finding points to the resiliency of the queer and trans Asian Pacific Islander community, that depsite the difficulties the community faces, many hold hope for a better tomorrow. 
 
 ## Table of Contents
 
-* [Screenshots](#screenshots)
+* [Visualizations](#visualizations)
 * [Technologies](#technologies)
 * [Metis](#metis)
 
-## Screenshots
+## Visualizations
 
+![sentiment trend by topic](https://user-images.githubusercontent.com/62628676/100009050-4a527c80-2d9c-11eb-9b4f-dabed9e76b70.png)
 ![t-SNE doc-topic clusters](https://user-images.githubusercontent.com/62628676/93692277-17032100-fabf-11ea-9a90-4ce7d3da2a0b.png)
 ![Sentiment map slide](https://user-images.githubusercontent.com/62628676/93692255-c12e7900-fabe-11ea-8774-238bdfafdf4f.png)
 
