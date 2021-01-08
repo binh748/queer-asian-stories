@@ -6,6 +6,8 @@ I discovered a surprising result from my analysis: the sentiment scores for each
 
 I believe this finding points to the resiliency of the queer and trans Asian Pacific Islander community, that depsite the difficulties the community faces, many hold hope for a better tomorrow. 
 
+To learn more, see my [blog post](https://binhhoang.io/blog/queer-asian-blogs/). 
+
 ## Table of Contents
 
 * [Visualizations](#visualizations)
